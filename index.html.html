@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#070b16">
+<title>AI Engineering Roadmap — David Dennis</title>
+<style>
+:root {
+  --bg:#070b16; --panel:#0d1322; --panel2:#111a2d; --text:#edf3ff; --muted:#8d9ab4;
+  --line:#202b42; --accent:#72a7ff; --accent2:#9b7cff; --green:#49d69b; --amber:#f5c76a;
+  --shadow:0 20px 60px rgba(0,0,0,.35); --radius:18px;
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:
+radial-gradient(circle at 20% 0%,rgba(114,167,255,.13),transparent 28%),
+radial-gradient(circle at 85% 8%,rgba(155,124,255,.12),transparent 25%),var(--bg);
+color:var(--text);font:15px/1.65 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+button,input{font:inherit} button{cursor:pointer}
+.app{display:grid;grid-template-columns:260px 1fr;min-height:100vh}
+.sidebar{position:sticky;top:0;height:100vh;border-right:1px solid var(--line);background:rgba(7,11,22,.86);backdrop-filter:blur(18px);padding:22px 16px;z-index:20}
+.brand{display:flex;align-items:center;gap:11px;padding:8px 10px 22px;font-weight:800;font-size:15px}
+.logo{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;color:#07101e;font-weight:900;box-shadow:0 8px 30px rgba(114,167,255,.25)}
+.nav{display:grid;gap:5px} .nav button{border:0;background:transparent;color:var(--muted);text-align:left;padding:11px 12px;border-radius:11px;transition:.2s}
+.nav button:hover,.nav button.active{background:var(--panel2);color:var(--text)} .nav .ico{display:inline-block;width:23px}
+.sidebar-bottom{position:absolute;left:16px;right:16px;bottom:18px}
+.progress-mini{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:13px}
+.bar{height:6px;background:#1b263d;border-radius:99px;overflow:hidden} .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:inherit;transition:.4s}
+.small{font-size:12px;color:var(--muted)} .row{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.main{min-width:0} .top{position:sticky;top:0;z-index:15;height:68px;border-bottom:1px solid var(--line);background:rgba(7,11,22,.72);backdrop-filter:blur(18px);display:flex;align-items:center;gap:12px;padding:0 30px}
+.search{flex:1;max-width:600px;position:relative} .search input{width:100%;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:11px 14px 11px 40px;color:var(--text);outline:none} .search span{position:absolute;left:14px;top:9px;color:var(--muted)}
+.iconbtn{width:38px;height:38px;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:11px}
+.content{max-width:1250px;margin:auto;padding:34px 30px 80px}
+.hero{padding:34px 0 25px;display:grid;grid-template-columns:1.4fr .6fr;gap:25px;align-items:end}
+.eyebrow{color:var(--accent);font-weight:800;letter-spacing:.08em;text-transform:uppercase;font-size:12px}
+h1{font-size:clamp(34px,5vw,62px);line-height:1.02;margin:10px 0 15px;letter-spacing:-.04em}
+h2{font-size:26px;letter-spacing:-.02em;margin:45px 0 16px} h3{margin:0 0 6px;font-size:18px}
+.hero p{color:var(--muted);max-width:720px;font-size:16px}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px} .btn{border:1px solid var(--line);background:var(--panel);color:var(--text);padding:11px 16px;border-radius:11px;font-weight:700} .btn.primary{background:linear-gradient(135deg,#5d9cff,#8669f4);border:0;color:white}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px} .stat{background:rgba(13,19,34,.8);border:1px solid var(--line);border-radius:16px;padding:17px} .stat strong{font-size:28px;display:block}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px} .card{background:linear-gradient(180deg,rgba(17,26,45,.92),rgba(13,19,34,.92));border:1px solid var(--line);border-radius:var(--radius);padding:19px;box-shadow:0 12px 40px rgba(0,0,0,.12)}
+.card p{color:var(--muted);margin:5px 0} .tag{display:inline-flex;padding:4px 8px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:11px;margin:3px 3px 0 0}
+.timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:12px} .year{position:relative;padding:20px;border:1px solid var(--line);background:var(--panel);border-radius:18px;min-height:190px} .year .num{color:var(--accent);font-size:12px;font-weight:800;text-transform:uppercase}
+.year ul{padding-left:18px;color:var(--muted);margin-bottom:0}
+.roadmap{position:relative;margin-top:20px} .roadmap:before{content:"";position:absolute;left:19px;top:15px;bottom:15px;width:2px;background:linear-gradient(var(--accent),var(--accent2),var(--green))}
+.node{position:relative;display:grid;grid-template-columns:40px 1fr;gap:16px;margin:12px 0} .dot{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--panel2);display:grid;place-items:center;z-index:1;font-weight:800;color:var(--accent)}
+.node.done .dot{background:rgba(73,214,155,.15);color:var(--green);border-color:rgba(73,214,155,.4)} .node.locked{opacity:.55}
+.nodebody{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;cursor:pointer;transition:.2s} .nodebody:hover{transform:translateY(-2px);border-color:#33476d}
+.meta{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px} .pill{font-size:11px;color:var(--muted);background:#0a1020;border:1px solid var(--line);padding:3px 7px;border-radius:7px}
+.controls{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0} .filter{border:1px solid var(--line);background:var(--panel);color:var(--muted);padding:8px 12px;border-radius:9px} .filter.active{color:var(--text);border-color:#40547b}
+.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:16px} table{width:100%;border-collapse:collapse;min-width:800px} th,td{padding:12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top} th{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.05em} td{color:#d8e1f2}
+.project{display:flex;justify-content:space-between;gap:16px;align-items:start} .check{border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:9px;padding:7px 10px} .check.done{color:var(--green);border-color:rgba(73,214,155,.4)}
+.section-note{color:var(--muted)} .footer{border-top:1px solid var(--line);padding:30px 0;color:var(--muted);margin-top:60px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;padding:20px;z-index:100} .modal.show{display:flex} .modalbox{width:min(760px,100%);max-height:85vh;overflow:auto;background:#0c1425;border:1px solid #2a3854;border-radius:20px;padding:24px;box-shadow:var(--shadow)} .close{float:right}
+.toast{position:fixed;bottom:22px;right:22px;background:#111a2d;border:1px solid var(--line);padding:12px 16px;border-radius:12px;opacity:0;transform:translateY(10px);transition:.25s;z-index:120} .toast.show{opacity:1;transform:none}
+@media(max-width:900px){.app{grid-template-columns:1fr}.sidebar{position:fixed;left:-280px;transition:.25s;width:260px}.sidebar.open{left:0}.top{padding:0 16px}.content{padding:25px 16px 60px}.hero{grid-template-columns:1fr}.timeline{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.timeline,.grid{grid-template-columns:1fr}h1{font-size:38px}.stats{grid-template-columns:1fr 1fr}}
+.light{--bg:#f5f7fb;--panel:#fff;--panel2:#eef3fb;--text:#0b1730;--muted:#60708b;--line:#dce3ef;--shadow:0 20px 60px rgba(25,45,80,.15)}
+.light body{background:var(--bg)} 
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+  <div class="brand"><div class="logo">AI</div><div>AI Engineering<br>Roadmap</div></div>
+  <nav class="nav">
+    <button class="active" data-target="dashboard"><span class="ico">⌂</span> Dashboard</button>
+    <button data-target="roadmap"><span class="ico">◈</span> Roadmap</button>
+    <button data-target="skills"><span class="ico">✦</span> Skills</button>
+    <button data-target="projects"><span class="ico">▣</span> Projects</button>
+    <button data-target="certs"><span class="ico">◇</span> Certifications</button>
+    <button data-target="internships"><span class="ico">↗</span> Internships</button>
+    <button data-target="system"><span class="ico">⌘</span> Architecture</button>
+  </nav>
+  <div class="sidebar-bottom">
+    <div class="progress-mini">
+      <div class="row"><b>Your progress</b><span id="sidePct">0%</span></div>
+      <div class="bar" style="margin:9px 0"><i id="sideBar"></i></div>
+      <div class="small">Saved locally in this browser</div>
+    </div>
+  </div>
+</aside>
+
+<main class="main">
+<header class="top">
+  <button class="iconbtn" id="menu">☰</button>
+  <div class="search"><span>⌕</span><input id="search" placeholder="Search roadmap, skills, projects…  (Ctrl K)"></div>
+  <button class="iconbtn" id="theme" title="Toggle theme">☼</button>
+</header>
+
+<div class="content">
+<section id="dashboard">
+  <div class="hero">
+    <div>
+      <div class="eyebrow">2026 → 2030 • BSCS → AI Engineering</div>
+      <h1>Build. Ship.<br><span style="color:var(--accent)">Become an AI Engineer.</span></h1>
+      <p>A modern, interactive version of the original “From BSCS to Full-Stack AI Engineer” roadmap. Follow the sequence, build projects, track progress and turn four years of study into production-ready engineering skills.</p>
+      <div class="cta"><button class="btn primary" onclick="go('roadmap')">Continue roadmap →</button><button class="btn" onclick="go('projects')">Open project lab</button></div>
+    </div>
+    <div class="stats">
+      <div class="stat"><span class="small">Roadmap stages</span><strong>20</strong></div>
+      <div class="stat"><span class="small">Years</span><strong>4</strong></div>
+      <div class="stat"><span class="small">Project levels</span><strong>7</strong></div>
+      <div class="stat"><span class="small">Target</span><strong>AI</strong></div>
+    </div>
+  </div>
+
+  <h2>Four-year journey</h2>
+  <div class="timeline">
+    <div class="year"><div class="num">Year 01</div><h3>Foundations</h3><ul><li>CS50x</li><li>Git + Linux</li><li>HTML/CSS/JS</li><li>Odin Foundations</li><li>Basic DSA</li></ul></div>
+    <div class="year"><div class="num">Year 02</div><h3>Software Engineering</h3><ul><li>React + TypeScript</li><li>Node + Express</li><li>PostgreSQL</li><li>Docker + CI/CD</li><li>Internship prep</li></ul></div>
+    <div class="year"><div class="num">Year 03</div><h3>AI / ML</h3><ul><li>Python + data</li><li>Math for ML</li><li>Machine learning</li><li>Deep learning</li><li>PyTorch + LLMs</li></ul></div>
+    <div class="year"><div class="num">Year 04</div><h3>Full-Stack AI</h3><ul><li>RAG + pgvector</li><li>AI agents</li><li>FastAPI</li><li>Cloud + evaluation</li><li>System design</li></ul></div>
+  </div>
+
+  <h2>How this roadmap works</h2>
+  <div class="grid">
+    <div class="card"><h3>01 · Learn</h3><p>Follow fundamentals before frameworks and AI. Use primary resources deeply and supplementary resources selectively.</p></div>
+    <div class="card"><h3>02 · Build</h3><p>Every stage produces an output: exercises, GitHub work, deployed applications, or portfolio projects.</p></div>
+    <div class="card"><h3>03 · Ship</h3><p>Deployment, testing, documentation, internships and production thinking turn knowledge into engineering ability.</p></div>
+  </div>
+</section>
+
+<section id="roadmap">
+<h2>Interactive roadmap</h2>
+<p class="section-note">Click any stage to open its full learning plan. Completed stages are saved automatically.</p>
+<div class="controls"><button class="filter active" data-filter="all">All</button><button class="filter" data-filter="Y1">Year 1</button><button class="filter" data-filter="Y2">Year 2</button><button class="filter" data-filter="Y3">Year 3</button><button class="filter" data-filter="Y4">Year 4</button></div>
+<div class="roadmap" id="roadmapList"></div>
+</section>
+
+<section id="skills">
+<h2>Skill tree</h2>
+<p class="section-note">The original roadmap's dependency model, converted into an explorable skill map.</p>
+<div class="grid">
+  <div class="card"><h3>L1 · Computer Science</h3><div class="meta"><span class="tag">Programming</span><span class="tag">Algorithms</span><span class="tag">Data Structures</span><span class="tag">Systems</span><span class="tag">Databases</span><span class="tag">Networking</span><span class="tag">Software Engineering</span></div></div>
+  <div class="card"><h3>L2 · Software</h3><div class="meta"><span class="tag">HTML/CSS</span><span class="tag">JavaScript</span><span class="tag">TypeScript</span><span class="tag">React</span><span class="tag">Node</span><span class="tag">PostgreSQL</span><span class="tag">Docker</span><span class="tag">CI/CD</span><span class="tag">Cloud</span></div></div>
+  <div class="card"><h3>L3 · Python & Data</h3><div class="meta"><span class="tag">Python</span><span class="tag">NumPy</span><span class="tag">Pandas</span><span class="tag">Statistics</span><span class="tag">Data processing</span></div></div>
+  <div class="card"><h3>L4–L5 · ML / DL</h3><div class="meta"><span class="tag">Supervised ML</span><span class="tag">Unsupervised</span><span class="tag">Evaluation</span><span class="tag">Neural Nets</span><span class="tag">PyTorch</span><span class="tag">CNN</span><span class="tag">Attention</span></div></div>
+  <div class="card"><h3>L6 · GenAI</h3><div class="meta"><span class="tag">LLMs</span><span class="tag">Embeddings</span><span class="tag">Prompting</span><span class="tag">APIs</span><span class="tag">Fine-tuning</span><span class="tag">Hugging Face</span><span class="tag">Evaluation</span></div></div>
+  <div class="card"><h3>L7–L10 · Production AI</h3><div class="meta"><span class="tag">RAG</span><span class="tag">Agents</span><span class="tag">FastAPI</span><span class="tag">Cloud</span><span class="tag">Monitoring</span><span class="tag">Security</span><span class="tag">System Design</span></div></div>
+</div>
+</section>
+
+<section id="projects">
+<h2>Project lab</h2>
+<p class="section-note">Turn the roadmap into a portfolio. Mark projects complete as you ship them.</p>
+<div class="grid" id="projectGrid"></div>
+</section>
+
+<section id="certs">
+<h2>Certification map</h2>
+<p class="section-note">Course certificates, learning resources and professional certifications are intentionally kept separate.</p>
+<div class="tablewrap"><table><thead><tr><th>Credential</th><th>Provider</th><th>Type</th><th>Cost</th><th>Stage</th><th>Purpose</th></tr></thead><tbody id="certTable"></tbody></table></div>
+</section>
+
+<section id="internships">
+<h2>Internship roadmap</h2>
+<div class="grid">
+  <div class="card"><h3>Before first internship</h3><p>GitHub, portfolio, resume, LinkedIn, 3–5 strong projects, DSA basics and communication.</p></div>
+  <div class="card"><h3>First internship</h3><p>Learn team workflow, Git, code reviews, production debugging, testing and deployment.</p></div>
+  <div class="card"><h3>Year 3+</h3><p>Target backend, full-stack, software engineering, AI/ML and AI application work. Build ownership and ship features.</p></div>
+</div>
+</section>
+
+<section id="system">
+<h2>Full-Stack AI architecture</h2>
+<div class="card">
+<pre style="white-space:pre-wrap;background:transparent;padding:0;margin:0;color:#cfe0ff">User
+  ↓
+React / TypeScript frontend
+  ↓
+API backend (FastAPI or Node)
+  ↓
+Auth & permissions → Business logic → PostgreSQL + pgvector
+  ↓
+RAG pipeline → LLM
+  ↓
+AI agent → Tools / external APIs
+  ↓
+Background jobs / queues → Cloud infrastructure
+  ↓
+Logging · Monitoring · Evaluation</pre>
+</div>
+<h2>Capstone</h2>
+<div class="card"><h3>Production-Style Full-Stack AI SaaS</h3><p>Authentication, dashboard, document upload and processing, embeddings, RAG chat with citations, conversation history, an AI agent with tool calling, search, role-based permissions, rate limiting, background jobs, logging, monitoring, evaluation set, tests, security documentation, architecture diagram and deployment.</p><div class="meta"><span class="tag">React + TypeScript</span><span class="tag">FastAPI</span><span class="tag">PostgreSQL + pgvector</span><span class="tag">Docker</span><span class="tag">GitHub Actions</span><span class="tag">One cloud</span></div></div>
+</section>
+
+<div class="footer"><b>David Dennis</b> · From BSCS to Full-Stack AI Engineer<br>You do not need to know everything on Day 1, and you will not become an AI engineer overnight. Compound your skills over years: learn, build, break things, debug, ship, get internships, work with teams, study AI deeply, build production systems, keep improving. A degree gives the foundation; projects show ability; internships give experience; DSA prepares interviews; AI gives depth; cloud enables deployment; system design builds architectural thinking; communication creates impact.</div>
+</div>
+</main>
+</div>
+
+<div class="modal" id="modal"><div class="modalbox"><button class="iconbtn close" onclick="closeModal()">×</button><div id="modalContent"></div></div></div>
+<div class="toast" id="toast">Saved</div>
+
+<script>
+const chapters = [['1', 'Starting the BSCS Journey', 'Y1', 'What CS teaches: programming, algorithms, data structures, databases, OS, networks, architecture, SE, AI, math', 'University courses (degree)', "Weekly plan combining classes + self-study. Don't skip coursework: it supplies theory interviews test."], ['2', 'CS Foundations', 'Y1 S1–S2', 'Computational thinking, C, arrays, memory, algorithms, data structures, Python, SQL, debugging, CLI, Git', 'Harvard CS50x (learning resource; free certificate; paid verified edX certificate is separate; neither is an accredited degree)', 'Finish problem sets + final project; push all to GitHub.'], ['3', 'Web Foundations', 'Y1', 'HTTP/HTTPS, DNS, browsers, servers, HTML, CSS, Flexbox, JS, DOM, events, APIs', 'The Odin Project Foundations + Full Stack JavaScript path (free; no certificate)', 'Build sites without a tutorial open.'], ['4', 'Full-Stack JavaScript', 'Y1 end–Y2', 'React, routing, forms, accessibility, Node, Express, REST, auth, validation, security, PostgreSQL, joins, indexes, transactions, testing, deployment', 'Odin Full Stack JS (primary)', 'Deployed full-stack CRUD app with auth.'], ['5', 'freeCodeCamp Track', 'Y1–Y2', 'Responsive Web Design, JavaScript, Front-End Libraries, Python, Relational Databases, Back-End &amp; APIs, Full-Stack progression where available', 'Supplementary practice + optional free course certificates (educational)', 'Do only the gaps Odin left; one portfolio project per certificate.'], ['6', 'Projects &amp; Portfolio', 'All years', 'Project ladder, READMEs, demos, architecture notes', '—', '3–5 polished projects before first internship.'], ['7', 'DSA &amp; LeetCode', 'Y1–Y4', 'Arrays, hash maps, two pointers, sliding window, stacks, queues, linked lists, binary search, recursion, trees, heaps, graphs, BFS/DFS, backtracking, DP, greedy, sorting, Big O', 'University DSA course + LeetCode/HackerRank practice', 'Pattern → concept → easy → medium → review mistakes → re-solve later.'], ['8', 'TypeScript &amp; Professional SE', 'Y2', 'TypeScript, clean code, OOP/functional ideas, design patterns, unit/integration/API tests, logging, PRs, code review, Linux, Docker, GitHub Actions', 'Official docs; Docker docs', 'Project with tests, CI and container.'], ['9', 'Python &amp; Data', 'Y2 end–Y3', 'Python, OOP, venvs, files, JSON, APIs, pytest, NumPy, Pandas, Matplotlib, Jupyter', 'freeCodeCamp Python; Kaggle Learn Python/Pandas (free; Kaggle issues completion certificates)', 'Independently build a useful data tool.'], ['10', 'Math for ML', 'Y3', 'Vectors, matrices, dot products, eigenvectors; probability, Bayes; statistics, hypothesis tests; derivatives, gradients, chain rule; loss, gradient descent, regularization', 'DeepLearning.AI Math for ML &amp; Data Science + your university math courses', 'Explain gradient descent by hand.'], ['11', 'Machine Learning', 'Y3', 'Supervised/unsupervised, regression, classification, clustering, features, cross-validation, over/underfitting, trees, forests, XGBoost, recommenders, anomaly detection, RL basics', 'Andrew Ng ML Specialization (DeepLearning.AI/Stanford Online, paid certificate, audit available); Google ML Crash Course (learning resource); Kaggle Intro/Intermediate ML, Feature Engineering, Explainable AI', 'Projects: house prices, churn, recommender, anomaly detection, ML API.'], ['12', 'Deep Learning &amp; PyTorch', 'Y3', 'Neural nets, backprop, CNN, RNN/LSTM, attention, transfer learning, training loops, GPU, save/load, inference', 'DeepLearning.AI Deep Learning Specialization (certificate); fast.ai Practical Deep Learning (learning resource); PyTorch docs', 'Image classifier + NLP model.'], ['13', 'Transformers, LLMs &amp; GenAI', 'Y3 end–Y4', 'Tokenization, embeddings, context windows, pretraining, fine-tuning, inference, structured outputs, tool calling, hallucinations, evaluation', 'Hugging Face LLM Course; DeepLearning.AI GenAI with LLMs', 'Know: using an API ≠ building AI apps ≠ fine-tuning ≠ training foundation models. Goal is application engineering.'], ['14', 'RAG', 'Y4', 'Embeddings, chunking, metadata, retrieval, reranking, context building, citations, ingestion, PDFs, evaluation; PostgreSQL + pgvector, plus ONE vector DB (Qdrant, Pinecone or Weaviate)', 'Official docs; DeepLearning.AI short courses', 'Doc Q&amp;A → PDF chatbot → university assistant → multi-doc RAG → production RAG SaaS.'], ['15', 'AI Agents', 'Y4', 'Tools, function calling, planning, memory, state, loops, human-in-the-loop, permissions, evaluation, security, agentic RAG, multi-agent', 'Hugging Face Agents Course; go deep on LangGraph; know smolagents, LlamaIndex, MCP conceptually', 'Research agent, document agent, support agent, agentic RAG.'], ['16', 'Full-Stack AI Engineering', 'Y4', 'React + TS, FastAPI, PostgreSQL + pgvector, auth, background jobs, WebSockets, Docker, CI, logging, rate limiting, cost control', 'Official docs', 'Integrated app on the reference architecture below.'], ['17', 'Cloud &amp; DevOps', 'Y3–Y4', 'Compute, storage, networking, IAM, secrets, containers, monitoring, backups, cost', 'ONE cloud: AWS or Azure. Professional certs only after hands-on use (see map).', 'Deploy your flagship to one cloud.'], ['18', 'System Design &amp; AI Architecture', 'Y3–Y4', 'Scalability, caching, queues, replication, sharding, monolith vs microservices, rate limiting, observability; model serving, routing, eval pipelines, latency/cost', 'Docs, engineering blogs, design practice', 'Whiteboard a RAG platform end to end. Software architecture + AI architecture = production AI engineering.'], ['19', 'Internships &amp; Career', 'Y2–Y4', 'Resume, LinkedIn, networking, behavioral, DSA and system-design interviews', '—', 'See Internship Roadmap.'], ['20', 'Forward-Deployed / AI Solutions', 'Post-grad', 'Requirements gathering, rapid prototyping, customer debugging, communication, product and business sense', 'Experience', 'A long-term advanced direction, not a guaranteed entry-level role.']];
+const projects = [['1', 'Portfolio site, recipe site, calculator, Rock Paper Scissors, Etch-a-Sketch'], ['2', 'Weather app, to-do, notes, React dashboard, API app'], ['3', 'Auth app, blog, e-commerce, task manager, chat app'], ['4', 'SaaS, production REST API, Dockerized app, cloud app, CI/CD app'], ['5', 'ML prediction app, NLP, computer vision, LLM chatbot, AI writing assistant'], ['6', 'PDF RAG, AI research assistant, support agent, agentic RAG, AI document platform, coding assistant'], ['7', 'Flagship Full-Stack AI SaaS (see capstone)']];
+const certs = [['CS50x', 'Harvard', 'Course', 'Free; paid verified option', 'Yes (free + paid edX)', 'No', 'Y1', 'High as learning; solid CS base'], ['The Odin Project', 'TOP', 'Learning resource', 'Free', 'No', 'No', 'Y1–Y2', 'High: project-based web skills'], ['freeCodeCamp certs', 'freeCodeCamp', 'Course certificates', 'Free', 'Yes', 'No', 'Y1–Y2', 'Moderate: practice and proof'], ['Kaggle Learn', 'Kaggle', 'Micro-courses', 'Free', 'Completion certificates', 'No', 'Y3', 'Moderate: hands-on data/ML'], ['Machine Learning Specialization', 'DeepLearning.AI / Stanford Online', 'Course', 'Paid cert; audit option', 'Yes', 'No', 'Y3', 'High: ML foundations'], ['Deep Learning Specialization', 'DeepLearning.AI', 'Course', 'Paid cert; audit option', 'Yes', 'No', 'Y3', 'High: neural networks'], ['Generative AI with LLMs', 'DeepLearning.AI / AWS', 'Course', 'Paid cert; audit option', 'Yes', 'No', 'Y3–Y4', 'High: LLM concepts'], ['Hugging Face LLM Course', 'Hugging Face', 'Learning resource', 'Free', 'Not a core feature; check site', 'No', 'Y4', 'High: Transformers ecosystem'], ['Hugging Face Agents Course', 'Hugging Face', 'Course', 'Free', 'Certificate possible on completion; check site', 'No', 'Y4', 'High: agent architecture'], ['ML Crash Course', 'Google', 'Learning resource', 'Free', 'No', 'No', 'Y3', 'Moderate: fast ML refresher'], ['AWS Certified Machine Learning Engineer – Associate', 'AWS', 'Exam', 'Paid exam', 'Yes', 'Yes', 'Y4 or later, after hands-on AWS', 'High when backed by projects'], ['Microsoft Certified: Azure AI Apps and Agents Developer Associate', 'Microsoft', 'Exam', 'Paid exam', 'Yes', 'Yes', 'Y4 or later, after hands-on Azure', 'High when backed by projects']];
+const state = JSON.parse(localStorage.getItem('aiRoadmapState') || '{}');
+state.done = state.done || {};
+state.projects = state.projects || {};
+
+function save() { localStorage.setItem('aiRoadmapState', JSON.stringify(state)); updateProgress(); }
+function updateProgress() {
+  const total = chapters.length + projects.length;
+  const done = Object.values(state.done).filter(Boolean).length + Object.values(state.projects).filter(Boolean).length;
+  const pct = total ? Math.round(done/total*100) : 0;
+  document.getElementById('sidePct').textContent = pct + '%';
+  document.getElementById('sideBar').style.width = pct + '%';
+}
+function toast(msg='Saved') { const t=document.getElementById('toast'); t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1300); }
+function go(id) { document.getElementById(id)?.scrollIntoView({behavior:'smooth'}); document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.target===id)); }
+document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>go(b.dataset.target));
+
+function renderRoadmap(filter='all', query='') {
+ const list=document.getElementById('roadmapList'); list.innerHTML='';
+ chapters.forEach((c,i)=>{
+   const stage=c[2]||'Y1'; const hay=c.join(' ').toLowerCase();
+   if(filter!=='all' && !stage.startsWith(filter)) return;
+   if(query && !hay.includes(query.toLowerCase())) return;
+   const done=!!state.done[i];
+   const el=document.createElement('div'); el.className='node '+(done?'done':'');
+   el.innerHTML=`<div class="dot">${done?'✓':i+1}</div><div class="nodebody">
+     <div class="row"><div><div class="small">${c[2]}</div><h3>${c[1]}</h3></div>
+     <button class="check ${done?'done':''}" data-i="${i}">${done?'Completed':'Mark complete'}</button></div>
+     <p>${c[3]}</p><div class="meta"><span class="pill">${c[4]}</span><span class="pill">${c[5]}</span></div>
+   </div>`;
+   el.querySelector('.nodebody').onclick=(e)=>{ if(e.target.closest('.check')) return; openChapter(i); };
+   el.querySelector('.check').onclick=()=>{state.done[i]=!state.done[i];save();renderRoadmap(filter,query);toast(state.done[i]?'Stage completed ✓':'Stage reopened');};
+   list.appendChild(el);
+ });
+}
+function openChapter(i) {
+ const c=chapters[i];
+ document.getElementById('modalContent').innerHTML=`<div class="eyebrow">${c[2]} · Chapter ${c[0]}</div><h2 style="margin-top:8px">${c[1]}</h2>
+ <p><b>Learn:</b> ${c[3]}</p><div class="card"><b>Primary resource</b><p>${c[4]}</p></div><div class="card"><b>Output / transition test</b><p>${c[5]}</p></div>
+ <button class="btn primary" onclick="state.done[${i}]=true;save();closeModal();renderRoadmap();toast('Stage completed ✓')">${state.done[i]?'Completed ✓':'Mark this stage complete'}</button>`;
+ document.getElementById('modal').classList.add('show');
+}
+function closeModal(){document.getElementById('modal').classList.remove('show')}
+document.getElementById('modal').onclick=e=>{if(e.target.id==='modal')closeModal()};
+
+document.querySelectorAll('.filter').forEach(b=>b.onclick=()=>{document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderRoadmap(b.dataset.filter,document.getElementById('search').value)});
+document.getElementById('search').oninput=e=>renderRoadmap(document.querySelector('.filter.active').dataset.filter,e.target.value);
+document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();document.getElementById('search').focus()}if(e.key==='Escape')closeModal()});
+
+function renderProjects(){
+ const g=document.getElementById('projectGrid');g.innerHTML='';
+ projects.forEach((p,i)=>{const done=!!state.projects[i];const c=document.createElement('div');c.className='card';
+ c.innerHTML=`<div class="project"><div><div class="eyebrow">Level ${p[0]}</div><h3>${p[1]}</h3><p>Build one or more polished projects at this stage. Include GitHub, README, screenshots, live demo, architecture explanation, tests, security notes and deployment where appropriate.</p></div><button class="check ${done?'done':''}">${done?'✓ Shipped':'Ship'}</button></div>`;
+ c.querySelector('.check').onclick=()=>{state.projects[i]=!state.projects[i];save();renderProjects();toast(state.projects[i]?'Project shipped ✓':'Project reopened')};g.appendChild(c)})
+}
+function renderCerts(){
+ const t=document.getElementById('certTable');t.innerHTML='';
+ certs.forEach(c=>{const tr=document.createElement('tr');tr.innerHTML=`<td><b>${c[0]}</b></td><td>${c[1]}</td><td>${c[2]}</td><td>${c[3]}</td><td>${c[6]}</td><td>${c[7]}</td>`;t.appendChild(tr)})
+}
+document.getElementById('theme').onclick=()=>{document.documentElement.classList.toggle('light');localStorage.setItem('aiRoadmapTheme',document.documentElement.classList.contains('light')?'light':'dark')};
+if(localStorage.getItem('aiRoadmapTheme')==='light')document.documentElement.classList.add('light');
+document.getElementById('menu').onclick=()=>document.getElementById('sidebar').classList.toggle('open');
+
+renderRoadmap();renderProjects();renderCerts();updateProgress();
+</script>
+</body>
+</html>
